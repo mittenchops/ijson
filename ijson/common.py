@@ -1,3 +1,4 @@
+import decimal
 '''
 Backend independent higher level interfaces, common exceptions.
 '''
@@ -78,7 +79,8 @@ def parse(basic_events):
             prefix = '.'.join(path)
         else: # any scalar value
             prefix = '.'.join(path)
-
+        if isinstance(value, decimal.Decimal): # POSSIBLE LOSS OF PRECISION
+            value = float(value)
         yield prefix, event, value
 
 
